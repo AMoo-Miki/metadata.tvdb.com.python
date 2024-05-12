@@ -76,14 +76,18 @@ def get_episode_details(id, images_url: str, settings):
                }
 
     if (
-        ep.airsBeforeEpisode
+        hasattr(ep, 'airsBeforeEpisode')
+        and ep.airsBeforeEpisode
         and ep.airsBeforeEpisode >= 0
         and ep.airsBeforeSeason
         and ep.airsBeforeSeason >= 0
     ):
         details['sortepisode'] = ep.airsBeforeEpisode
         details['sortseason'] = ep.airsBeforeSeason
-    elif ep.airsAfterEpisode and ep.airsAfterEpisode >= 0:
+    elif (
+        hasattr(ep, 'airsAfterEpisode')
+        and ep.airsAfterEpisode >= 0
+    ):
         details['sortseason'] = 10000
         details['sortepisode'] = ep.airsAfterEpisode
 
